@@ -1,38 +1,272 @@
+/* ========== STYLES GÉNÉRAUX ========== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 20px;
+}
+
+header {
+  text-align: center;
   color: white;
+  margin-bottom: 40px;
 }
 
-.App-link {
-  color: #61dafb;
+header h1 {
+  font-size: 3em;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* ========== CONTENEUR PRINCIPAL DU JEU ========== */
+.game-container {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 900px;
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* ========== STATUT DU JEU ========== */
+.game-status {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.victory {
+  background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+  padding: 20px;
+  border-radius: 10px;
+  color: #1a5f3d;
+}
+
+.victory h2 {
+  margin: 0 0 10px 0;
+  font-size: 2em;
+}
+
+.defeat {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  padding: 20px;
+  border-radius: 10px;
+  color: #8b0000;
+}
+
+.defeat h2 {
+  margin: 0 0 10px 0;
+  font-size: 2em;
+}
+
+/* ========== SECTION DESSIN ========== */
+#draw-component,
+.draw-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.draw-section svg {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.draw-info {
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #333;
+}
+
+.wrong-count {
+  margin: 0;
+  color: #d32f2f;
+}
+
+.game-over {
+  margin: 10px 0 0 0;
+  color: #8b0000;
+  font-size: 1.3em;
+}
+
+/* ========== INFORMATION DU JEU ========== */
+.game-info {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1em;
+}
+
+.game-info p {
+  margin: 5px 0;
+  color: #333;
+}
+
+/* ========== AFFICHAGE DU MOT ========== */
+#Word-component,
+.word-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.word {
+  display: flex;
+  gap: 8px;
+  font-size: 2.5em;
+  font-weight: bold;
+  letter-spacing: 10px;
+}
+
+.letter-box {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #667eea;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: bold;
+  min-width: 50px;
+}
+
+/* ========== CLAVIER ========== */
+#Keyboard-component,
+.keyboard-section {
+  display: flex;
+  justify-content: center;
+}
+
+.letters-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 10px;
+}
+
+.letter-keyboard-component {
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid #667eea;
+  border-radius: 6px;
+  background: white;
+  color: #333;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.letter-keyboard-component:hover:not(:disabled) {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
+}
+
+.letter-keyboard-component:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.letter-keyboard-component.guessed {
+  background: #84fab0;
+  border-color: #4caf50;
+  color: #1a5f3d;
+  font-weight: bold;
+}
+
+.letter-keyboard-component.wrong {
+  background: #fa709a;
+  border-color: #d32f2f;
+  color: white;
+  font-weight: bold;
+}
+
+.letter-keyboard-component:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ========== BOUTON RECOMMENCER ========== */
+.restart-button {
+  margin-top: 20px;
+  padding: 15px 40px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.restart-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.restart-button:active {
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIF ========== */
+@media (max-width: 768px) {
+  .game-container {
+    max-width: 100%;
+    padding: 20px;
+    gap: 20px;
   }
-  to {
-    transform: rotate(360deg);
+
+  header h1 {
+    font-size: 2em;
+  }
+
+  .word {
+    font-size: 2em;
+  }
+
+  .letter-box {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+  }
+
+  .letter-keyboard-component {
+    min-width: 35px;
+    width: 35px;
+    height: 35px;
+    font-size: 0.9em;
   }
 }
